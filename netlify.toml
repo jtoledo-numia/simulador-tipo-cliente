@@ -2,7 +2,11 @@
   publish = "."
   command = ""
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 [[redirects]]
   from = "/admin"
-  to = "/admin/"
+  to = "/"
   status = 301

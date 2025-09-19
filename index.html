@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Simulador de Tipo de Cliente</title>
+  <title>Simulador + Reglas (editable)</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="container site-header">
     <h1>Simulador de Tipo de Cliente</h1>
-    <nav><a href="/admin/" class="btn">Administrar reglas</a></nav>
+    <div class="muted">Una sola página: simulador arriba, reglas abajo (editables para cualquiera).</div>
   </header>
 
   <main class="container stack">
+    <!-- SIMULADOR -->
     <section class="card">
-      <h2>Ingresá los parámetros</h2>
+      <h2>Simulador</h2>
       <form id="simForm" class="sim-form">
         <div class="grid-2">
           <div class="row"><label for="banca">Banca</label><input id="banca" placeholder="Ej: 02" /></div>
@@ -27,19 +28,40 @@
       <div id="result" class="result" hidden></div>
     </section>
 
+    <!-- REGLAS EDITABLES -->
     <section class="card">
-      <h2>Reglas (lectura) <small id="rulesCount" class="muted"></small></h2>
-      <p class="muted">La edición se hace en <a href="/admin/">Administrar reglas</a>. El orden define la prioridad (1 = mayor). Vacío = acepta cualquier valor.</p>
+      <div class="row header-row">
+        <h2>Reglas (editables por cualquiera)</h2>
+        <div class="actions">
+          <button id="addRule" class="btn">+ Agregar regla</button>
+          <button id="saveRules" class="btn primary">💾 Guardar cambios</button>
+        </div>
+      </div>
+      <p class="muted">El orden define la prioridad (1 = mayor). Vacío = acepta cualquier valor.</p>
+
       <div class="table-wrapper">
         <table class="rules-table">
-          <thead><tr><th>#</th><th>Tipo de cliente</th><th>Banca</th><th>Identificación</th><th>Categoría</th><th>Segmento</th></tr></thead>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Tipo de cliente</th>
+              <th>Banca</th>
+              <th>Identificación</th>
+              <th>Categoría</th>
+              <th>Segmento</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
           <tbody id="rulesBody"></tbody>
         </table>
       </div>
     </section>
   </main>
 
-  <footer class="container muted"><small>Tip: escribí códigos con dos dígitos. Ej: 1 → 01.</small></footer>
+  <footer class="container muted">
+    <small>Tip: escribí códigos con dos dígitos (1 → 01). Múltiples códigos por campo separados con coma. </small>
+  </footer>
+
   <script src="app.js"></script>
 </body>
 </html>
