@@ -15,8 +15,15 @@ const seed = {
   ]
 };
 
+function makeStore() {
+  // Si Blobs no está auto-configurado en este sitio/plan, usamos configuración manual.
+  const siteID = process.env.SITE_ID;
+  const token = process.env.NETLIFY_API_TOKEN; // <- crear en User settings > Applications > Personal access tokens
+  return getStore({ name: 'simulador-rules', siteID, token });
+}
+
 exports.handler = async (event) => {
-  const store = getStore({ name: 'simulador-rules' });
+  const store = makeStore();
 
   if (event.httpMethod === 'GET') {
     const json = await store.get(KEY, { type: 'json' });
