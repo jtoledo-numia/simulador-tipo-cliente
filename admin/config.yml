@@ -1,0 +1,26 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "static/uploads"
+public_folder: "/static/uploads"
+
+collections:
+  - label: "Datos"
+    name: "data"
+    files:
+      - label: "Reglas"
+        name: "reglas"
+        file: "rules.json"
+        fields:
+          - label: "Reglas"
+            name: "rules"
+            widget: "list"
+            summary: "{{fields.order}} — {{fields.name}}"
+            fields:
+              - { label: "Orden (prioridad)", name: "order", widget: "number", min: 1 }
+              - { label: "Tipo de cliente", name: "name", widget: "string" }
+              - { label: "Banca (códigos, opcional)", name: "banca", widget: "list", hint: "Dejar vacío = acepta cualquier valor" }
+              - { label: "Identificación (códigos, opcional)", name: "identificacion", widget: "list", hint: "Dejar vacío = acepta cualquier valor" }
+              - { label: "Categoría (códigos, opcional)", name: "categoria", widget: "list", hint: "Dejar vacío = acepta cualquier valor" }
+              - { label: "Segmento (códigos, opcional)", name: "segmento", widget: "list", hint: "Dejar vacío = acepta cualquier valor" }
