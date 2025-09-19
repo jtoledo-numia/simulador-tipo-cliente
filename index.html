@@ -7,32 +7,39 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="container">
+  <header class="container site-header">
     <h1>Simulador de Tipo de Cliente</h1>
     <nav><a href="/admin/" class="btn">Administrar reglas</a></nav>
   </header>
-  <main class="container grid">
+
+  <main class="container stack">
     <section class="card">
       <h2>Ingresá los parámetros</h2>
-      <form id="simForm">
-        <div class="row"><label for="banca">Banca</label><input id="banca" placeholder="Ej: 02" /></div>
-        <div class="row"><label for="identificacion">Identificación</label><input id="identificacion" placeholder="Ej: 01" /></div>
-        <div class="row"><label for="categoria">Categoría</label><input id="categoria" placeholder="Ej: 03" /></div>
-        <div class="row"><label for="segmento">Segmento</label><input id="segmento" placeholder="Ej: 06" /></div>
+      <form id="simForm" class="sim-form">
+        <div class="grid-2">
+          <div class="row"><label for="banca">Banca</label><input id="banca" placeholder="Ej: 02" /></div>
+          <div class="row"><label for="identificacion">Identificación</label><input id="identificacion" placeholder="Ej: 01" /></div>
+          <div class="row"><label for="categoria">Categoría</label><input id="categoria" placeholder="Ej: 03" /></div>
+          <div class="row"><label for="segmento">Segmento</label><input id="segmento" placeholder="Ej: 06" /></div>
+        </div>
         <button class="btn primary" type="submit">Clasificar</button>
       </form>
       <div id="result" class="result" hidden></div>
     </section>
+
     <section class="card">
-      <h2>Reglas (lectura)</h2>
-      <p class="muted">La edición se hace en <strong>Administrar reglas</strong>. El orden define la prioridad (1 = mayor).</p>
+      <h2>Reglas (lectura) <small id="rulesCount" class="muted"></small></h2>
+      <p class="muted">La edición se hace en <a href="/admin/">Administrar reglas</a>. El orden define la prioridad (1 = mayor). Vacío = acepta cualquier valor.</p>
       <div class="table-wrapper">
-        <table><thead><tr><th>#</th><th>Tipo de cliente</th><th>Banca</th><th>Identificación</th><th>Categoría</th><th>Segmento</th></tr></thead>
-        <tbody id="rulesBody"></tbody></table>
+        <table class="rules-table">
+          <thead><tr><th>#</th><th>Tipo de cliente</th><th>Banca</th><th>Identificación</th><th>Categoría</th><th>Segmento</th></tr></thead>
+          <tbody id="rulesBody"></tbody>
+        </table>
       </div>
     </section>
   </main>
-  <footer class="container muted"><small>Tip: dejá vacíos los campos en una regla para aceptar cualquier valor (wildcard).</small></footer>
+
+  <footer class="container muted"><small>Tip: escribí códigos con dos dígitos. Ej: 1 → 01.</small></footer>
   <script src="app.js"></script>
 </body>
 </html>
