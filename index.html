@@ -11,24 +11,20 @@
     <h1>Simulador de Tipo de Cliente</h1>
     <div class="muted">Una sola página: simulador arriba, reglas abajo (editables para cualquiera).</div>
   </header>
-
   <main class="container stack">
-    <!-- SIMULADOR -->
     <section class="card">
       <h2>Simulador</h2>
       <form id="simForm" class="sim-form">
         <div class="grid-2">
-          <div class="row"><label for="banca">Banca</label><input id="banca" placeholder="Ej: 02" /></div>
-          <div class="row"><label for="identificacion">Identificación</label><input id="identificacion" placeholder="Ej: 01" /></div>
-          <div class="row"><label for="categoria">Categoría</label><input id="categoria" placeholder="Ej: 03" /></div>
-          <div class="row"><label for="segmento">Segmento</label><input id="segmento" placeholder="Ej: 06" /></div>
+          <div class="row"><label>Banca</label><input id="banca" placeholder="Ej: 02" /></div>
+          <div class="row"><label>Identificación</label><input id="identificacion" placeholder="Ej: 01" /></div>
+          <div class="row"><label>Categoría</label><input id="categoria" placeholder="Ej: 03" /></div>
+          <div class="row"><label>Segmento</label><input id="segmento" placeholder="Ej: 06" /></div>
         </div>
         <button class="btn primary" type="submit">Clasificar</button>
       </form>
       <div id="result" class="result" hidden></div>
     </section>
-
-    <!-- REGLAS EDITABLES -->
     <section class="card">
       <div class="row header-row">
         <h2>Reglas (editables por cualquiera)</h2>
@@ -38,30 +34,15 @@
         </div>
       </div>
       <p class="muted">El orden define la prioridad (1 = mayor). Vacío = acepta cualquier valor.</p>
-
       <div class="table-wrapper">
         <table class="rules-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Tipo de cliente</th>
-              <th>Banca</th>
-              <th>Identificación</th>
-              <th>Categoría</th>
-              <th>Segmento</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
+          <thead><tr><th>#</th><th>Tipo de cliente</th><th>Banca</th><th>Identificación</th><th>Categoría</th><th>Segmento</th><th>Acciones</th></tr></thead>
           <tbody id="rulesBody"></tbody>
         </table>
       </div>
     </section>
   </main>
-
-  <footer class="container muted">
-    <small>Tip: escribí códigos con dos dígitos (1 → 01). Múltiples códigos por campo separados con coma. </small>
-  </footer>
-
+  <footer class="container muted"><small>Tip: escribí códigos con dos dígitos (1 → 01). Múltiples códigos por campo separados con coma.</small></footer>
   <script src="app.js"></script>
 </body>
 </html>

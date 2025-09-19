@@ -1,6 +1,6 @@
-import { getStore } from '@netlify/blobs'
+const { getStore } = require('@netlify/blobs');
 
-const KEY = 'rules.json'
+const KEY = 'rules.json';
 const seed = {
   rules: [
     { order:1, name:'Selecta Privado (id 5)', banca:[], identificacion:[], categoria:['03','10'], segmento:[] },
@@ -13,24 +13,24 @@ const seed = {
     { order:8, name:'Empresa No cliente (id 8)', banca:['02','03','04'], identificacion:[], categoria:[], segmento:[] },
     { order:9, name:'No cliente (id 6)', banca:[], identificacion:[], categoria:[], segmento:[] }
   ]
-}
+};
 
-export default async (req, context) => {
-  const store = getStore({ name: 'simulador-rules' })
-  if (req.method === 'GET') {
-    const json = await store.get(KEY, { type: 'json' })
-    const data = json ?? seed
-    return new Response(JSON.stringify(data), { headers: { 'content-type': 'application/json' } })
+exports.handler = async (event) => {
+  const store = getStore({ name: 'simulador-rules' });
+
+  if (event.httpMethod === 'GET') {
+    const json = await store.get(KEY, { type: 'json' });
+    const data = json ?? seed;
+    return { statusCode: 200, headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) };
   }
 
-  if (req.method === 'PUT') {
-    const body = await req.json().catch(()=>null)
-    if (!body || !Array.isArray(body.rules)) {
-      return new Response('Invalid JSON: expected { rules: [...] }', { status: 400 })
-    }
-    await store.set(KEY, JSON.stringify({ rules: body.rules }, null, 2))
-    return new Response('OK', { status: 200 })
+  if (event.httpMethod === 'PUT') {
+    let body;
+    try { body = JSON.parse(event.body || '{}'); } catch(e) { return { statusCode: 400, body: 'Invalid JSON' }; }
+    if (!body || !Array.isArray(body.rules)) return { statusCode: 400, body: 'Invalid JSON: expected { rules: [...] }' };
+    await store.set(KEY, JSON.stringify({ rules: body.rules }, null, 2));
+    return { statusCode: 200, body: 'OK' };
   }
 
-  return new Response('Method not allowed', { status: 405 })
-}
+  return { statusCode: 405, body: 'Method not allowed' };
+};
