@@ -1,5 +1,4 @@
 const { getStore } = require('@netlify/blobs');
-
 const KEY = 'rules.json';
 const seed = {
   rules: [
@@ -14,30 +13,19 @@ const seed = {
     { order:9, name:'No cliente (id 6)', banca:[], identificacion:[], categoria:[], segmento:[] }
   ]
 };
-
-function makeStore() {
-  // Si Blobs no está auto-configurado en este sitio/plan, usamos configuración manual.
-  const siteID = process.env.SITE_ID;
-  const token = process.env.NETLIFY_API_TOKEN; // <- crear en User settings > Applications > Personal access tokens
-  return getStore({ name: 'simulador-rules', siteID, token });
-}
-
+function makeStore(){ const siteID = process.env.SITE_ID; const token = process.env.NETLIFY_API_TOKEN; return getStore({ name:'simulador-rules', siteID, token }); }
 exports.handler = async (event) => {
   const store = makeStore();
-
   if (event.httpMethod === 'GET') {
     const json = await store.get(KEY, { type: 'json' });
     const data = json ?? seed;
     return { statusCode: 200, headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) };
   }
-
   if (event.httpMethod === 'PUT') {
-    let body;
-    try { body = JSON.parse(event.body || '{}'); } catch(e) { return { statusCode: 400, body: 'Invalid JSON' }; }
+    let body; try { body = JSON.parse(event.body || '{}'); } catch(e){ return { statusCode: 400, body: 'Invalid JSON' }; }
     if (!body || !Array.isArray(body.rules)) return { statusCode: 400, body: 'Invalid JSON: expected { rules: [...] }' };
     await store.set(KEY, JSON.stringify({ rules: body.rules }, null, 2));
     return { statusCode: 200, body: 'OK' };
   }
-
   return { statusCode: 405, body: 'Method not allowed' };
 };
